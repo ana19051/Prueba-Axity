@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<body>
+   <script>
+    //1. Convertir la palabra computador en un arreglo e imprimirlo al reverso lo que se espera ver:
+    let palabra = "computador";
+    let arreglo = Array.from(palabra);
+    console.log(arreglo);
+    let reverso = arreglo.reverse();
+    console.log(reverso);
+
+    //2. Generar una contraseña aleatoria a partir de la siguiente cadena de caracteres 
+    let cadena = "qwertyuiopasdfghjklzxcvbnm0987654321QWERTYUIOPASDFGHJKLZXCVBNM";
+    let resultado = "";
+    
+    function generadorContra(length = 10){
+        let contraseña = "";
+        for (let i=0; i<=length; i++){
+            contraseña += cadena.charAt(Math.floor(Math.random()*cadena.length));
+        }
+        return contraseña;
+    }
+    
+    resultado = generadorContra();
+    console.log("La contraseña aleatoria es: " + resultado);
+
+    
+    let arrayPruebas= [
+    {"cantidadVendida":2,"NombreProducto":"Té Dharamsala","Proveedor":"Exotic Liquids","Categoria":"Bebidas","PrecioUnidad":"18"},
+    {"cantidadVendida":20,"NombreProducto":"Cerveza tibetana Barley","Proveedor":"Exotic Liquids","Categoria":"Bebidas","PrecioUnidad":"19"},
+    {"cantidadVendida":12,"NombreProducto":"Sirope de regaliz","Proveedor":"Exotic Liquids","Categoria":"Condimentos","PrecioUnidad":"10"},
+    {"cantidadVendida":21,"NombreProducto":"Especias Cajun del chef Anton","Proveedor":"New Orleans Cajun Delights","Categoria":"Condimentos","PrecioUnidad":"22"},
+    {"cantidadVendida":2,"NombreProducto":"Mezcla Gumbo del chef Anton","Proveedor":"New Orleans Cajun Delights","Categoria":"Condimentos","PrecioUnidad":"21,35"},
+    {"cantidadVendida":32,"NombreProducto":"Mermelada de grosellas de la abuela","Proveedor":"Grandma Kelly's Homestead","Categoria":"Condimentos","PrecioUnidad":"25"},
+    {"cantidadVendida":4,"NombreProducto":"Peras secas orgánicas del tío Bob","Proveedor":"Grandma Kelly's Homestead","Categoria":"Frutas/Verduras","PrecioUnidad":"30"},
+    {"cantidadVendida":32,"NombreProducto":"Salsa de arándanos Northwoods","Proveedor":"Grandma Kelly's Homestead","Categoria":"Condimentos","PrecioUnidad":"40"},
+    {"cantidadVendida":5,"NombreProducto":"Buey Mishi Kobe","Proveedor":"Tokyo Traders","Categoria":"Carnes","PrecioUnidad":"97"},
+    {"cantidadVendida":4,"NombreProducto":"Pez espada","Proveedor":"Tokyo Traders","Categoria":"Pescado/Marisco","PrecioUnidad":"31"},
+    {"cantidadVendida":7,"NombreProducto":"Queso Cabrales","Proveedor":"Cooperativa de Quesos 'Las Cabras'","Categoria":"Lácteos","PrecioUnidad":"21"},
+    {"cantidadVendida":65,"NombreProducto":"Queso Manchego La Pastora","Proveedor":"Cooperativa de Quesos 'Las Cabras'","Categoria":"Lácteos","PrecioUnidad":"38"},
+    {"cantidadVendida":8,"NombreProducto":"Algas Konbu","Proveedor":"Mayumi's","Categoria":"Pescado/Marisco","PrecioUnidad":"6"},
+    {"cantidadVendida":6,"NombreProducto":"Cuajada de judías","Proveedor":"Mayumi's","Categoria":"Frutas/Verduras","PrecioUnidad":"23,25"},
+    {"cantidadVendida":7,"NombreProducto":"Salsa de soja baja en sodio","Proveedor":"Mayumi's","Categoria":"Condimentos","PrecioUnidad":"15,5"},
+    {"cantidadVendida":0,"NombreProducto":"Postre de merengue Pavlova","Proveedor":"Pavlova, Ltd.","Categoria":"Repostería","PrecioUnidad":"17,45"},
+    {"cantidadVendida":7,"NombreProducto":"Cordero Alice Springs","Proveedor":"Pavlova, Ltd.","Categoria":"Carnes","PrecioUnidad":"39"},
+    {"cantidadVendida":9,"NombreProducto":"Langostinos tigre Carnarvon","Proveedor":"Pavlova, Ltd.","Categoria":"Pescado/Marisco","PrecioUnidad":"62,5"},
+    {"cantidadVendida":8,"NombreProducto":"Pastas de té de chocolate","Proveedor":"Specialty Biscuits, Ltd.","Categoria":"Repostería","PrecioUnidad":"9,2"},
+    {"cantidadVendida":6,"NombreProducto":"Mermelada de Sir Rodney's","Proveedor":"Specialty Biscuits, Ltd.","Categoria":"Repostería","PrecioUnidad":"81"}];
+
+    
+    //3. Del array “arrayPruebas” extraer el producto que más se vendió (no hay productos repetidos).
+    const productoMasVendido = (arreglo, numero) => {
+        return arreglo
+        .map(arrayPruebas => { arrayPruebas.cantidadVendida = Number(arrayPruebas.cantidadVendida); return arrayPruebas })
+        .sort((productoA, productoB) => productoB.cantidadVendida - productoA.cantidadVendida)
+        .splice(0, numero)
+    }
+
+    let devuelve = [];
+    devuelve = productoMasVendido(arrayPruebas,1);
+    
+    for(let j=0; j<=devuelve.length-1; j++){
+        console.log(devuelve[j]);
+        console.log("El producto más vendido es: " + devuelve[j].NombreProducto);
+    }
+
+    //4. Ordenar de mayor a menor los proveedores que más productos nos venden.
+
+
+    //5. Cual fue el producto que más ganancias nos generó (ganancias es cantidadVendida * PrecioUnidad).
+    const mayorGanancia = (arreglo) => {
+        let aux = [];
+        let ganancia = 0, a=0, b=0;
+        for(let k=0; k<=arreglo.length-1; k++){
+            ganancia = Number(arreglo[k].cantidadVendida) * parseInt(arreglo[k].PrecioUnidad);
+            aux[k]=ganancia;
+        }
+        a=Math.max(...aux);
+        for(let i=0; i<=aux.length-1; i++){
+            if(aux[i] == a){
+                console.log(arreglo[i]);
+                console.log("El producto que más ganancias genero es: " + arreglo[i].NombreProducto + " con ganancias de: " + a)
+            }else{}
+        }
+    }
+    mayorGanancia(arrayPruebas);
+
+    //6. Cuáles fueron las ganancias por categoría.
+    
+
+   </script> 
+</body>
